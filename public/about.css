@@ -1,0 +1,212 @@
+/* General reset */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #ffffff;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 40px;
+    margin-right: 10px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+header a {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 16px;
+}
+
+header nav {
+    display: flex;
+    gap: 15px;
+}
+
+header a:hover {
+    text-decoration: underline;
+}
+
+
+
+/* Team Section */
+.team {
+    padding: 60px 20px;
+    background-color: white;
+    text-align: center;
+}
+
+.team h2 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.team-members {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.team .member {
+    text-align: center;
+    width: 100%;
+    max-width: 250px;
+    padding: 20px;
+    background: #f4f4f9;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team .member:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.team .member img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid #0066cc;
+}
+
+.team .member h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.team .member p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.team .member .social-media {
+    margin-top: 10px;
+}
+
+.team .member .social-media a {
+    color: #0066cc;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.team .member .social-media a:hover {
+    color: #ff8c00;
+    transform: scale(1.2);
+}
+
+
+/* Footer Container */
+footer {
+    background-color: #0066cc; /* Warna latar belakang */
+    color: white;
+    padding: 20px 40px;
+}
+
+footer .footer-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Agar responsif */
+}
+
+/* Logo di Kiri */
+footer .footer-logo img {
+    max-width: 120px; /* Ukuran maksimum logo */
+    height: auto;
+    margin-right: 20px; /* Jarak dengan konten lainnya */
+}
+
+/* Konten Footer di Kanan */
+footer .footer-content {
+    flex-grow: 1;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 15px;
+    display: flex;
+    gap: 15px; /* Jarak antar menu */
+    flex-wrap: wrap;
+}
+
+footer ul li a {
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+footer ul li a:hover {
+    background-color: #ff8c00; /* Warna hover */
+    color: white;
+}
+
+footer .contact-info {
+    font-size: 14px;
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+footer .social-media a {
+    color: #ffcc00;
+    text-decoration: none;
+    margin: 0 5px;
+    transition: color 0.3s ease;
+}
+
+footer .social-media a:hover {
+    color: #ffd700;
+}
+
+/* Responsif untuk layar kecil */
+@media screen and (max-width: 600px) {
+    footer .footer-container {
+        flex-direction: column; /* Susunan vertikal */
+        align-items: center;
+    }
+
+    footer .footer-logo img {
+        margin-bottom: 15px;
+    }
+
+    footer ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    footer .contact-info, footer .social-media {
+        text-align: center;
+    }
+}

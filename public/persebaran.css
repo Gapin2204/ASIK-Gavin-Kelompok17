@@ -1,0 +1,119 @@
+ /* General reset */
+ body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #ffffff;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 40px;
+    margin-right: 10px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+header a {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 16px;
+}
+
+header nav {
+    display: flex;
+    gap: 15px;
+}
+
+header a:hover {
+    text-decoration: underline;
+}
+
+
+        /* Map Section */
+        .map-section {
+            position: relative;
+            height: calc(100vh - 120px); /* Full page minus header */
+        }
+
+        #map {
+            height: 100%;
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Dropdown Tahun */
+        .dropdown-container {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background-color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown-container select {
+            border: 2px solid #0066cc;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-container select:focus, .dropdown-container select:hover {
+            border-color: #ff8c00;
+            outline: none;
+        }
+
+        /* Checkbox Controls */
+        .controls-container {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .controls-container label {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: #333;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0066cc;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }

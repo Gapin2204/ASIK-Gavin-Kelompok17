@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Persebaran Ekosistem Pantai Untung Jawa">
+    <title>Persebaran Peta - Pantai Untung Jawa</title>
+    <link rel="stylesheet" href="persebaran.css"/>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #ffffff;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        header nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        header a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 16px;
+        }
+
+        header a:hover {
+            text-decoration: underline;
+        }
+
+        /* Map Section */
+        .map-section {
+            position: relative;
+            height: calc(100vh - 100px); /* Full page minus header height */
+        }
+
+        #map {
+            height: 100%;
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Control Section */
+        .controls {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 500;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .controls label {
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .controls select {
+            font-size: 16px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        /* Text Container in Map */
+        .map-description {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 10px 20px;
+            font-size: 18px;
+            color: #333;
+            border-radius: 5px;
+            z-index: 1000;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0066cc;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header>
+        <div class="logo-container">
+            <img src="logo.jpeg.png" alt="EkoTrack Logo" class="logo">
+            <h1>EkoTrack</h1>
+        </div>
+        <nav>
+            <a href="/home">Home</a>
+            <a href="/about">About Us</a>
+            <a href="/persebaran">Persebaran Peta</a>
+            <a href="/wisata">Wisata</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+
+    <!-- Map Section -->
+    <div class="map-section">
+        <div id="map"></div>
+
+        <!-- Text Above Map -->
+        <div class="map-description">
+            Persebaran Ndivia
+        </div>
+
+        <!-- Control Section inside Map -->
+        <div class="controls">
+            <label for="yearSelect">Tahun:</label>
+            <select id="yearSelect">
+                <option value="22">2022</option>
+                <option value="23">2023</option>
+                <option value="24">2024</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Dropdown untuk Pindah Halaman -->
+    <label for="pageSelect">Persebaran</label>
+    <select id="pageSelect"> 
+        <option value="/ekosistem">Mangrove</option>
+        <option value="/persebaran">Lamun Dan Terumbu Karang</option>  <!-- Opsi Halaman 1 -->
+    </select>
+
+    <script>
+        // Event listener untuk dropdown halaman
+        document.getElementById('pageSelect').addEventListener('change', (e) => {
+            const selectedPage = e.target.value;
+            window.location.href = selectedPage; // Pindah ke halaman yang dipilih
+        });
+    </script>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 EkoTrack. Semua Hak Dilindungi.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Membuat peta
+        const map = L.map('map').setView([-5.977084972369679, 106.70714198623841], 15);
+
+        // Menambahkan Tile Layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        let geoJsonLayer; // Layer untuk GeoJSON
+
+        // Fungsi untuk Memuat GeoJSON Berdasarkan Tahun
+        const loadGeoJSON = (year) => {
+            // Hapus layer sebelumnya
+            if (geoJsonLayer) {
+                map.removeLayer(geoJsonLayer);
+            }
+
+            const fileName = `./peta/NDIVIA${year}.geojson`; // Menggunakan file GeoJSON Ndivia
+            fetch(fileName)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`File ${fileName} tidak ditemukan`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    geoJsonLayer = L.geoJSON(data, {
+                        style: (feature) => {
+                            let fillColor;
+                            // Menentukan warna berdasarkan gridcode
+                            if (feature.properties.gridcode === 'Ndivia') {
+                                fillColor = '#4CAF50'; // Warna hijau untuk Ndivia
+                            } else {
+                                fillColor = '#FF6347'; // Warna merah untuk data lainnya
+                            }
+                            return {
+                                color: '#000000', // Border hitam
+                                weight: 1,
+                                opacity: 0.6,
+                                fillColor: fillColor, // Isi warna berdasarkan gridcode
+                                fillOpacity: 0.5
+                            };
+                        }
+                    }).addTo(map);
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    alert(`Gagal memuat file ${fileName}: ${error.message}`);
+                });
+        };
+
+        // Memuat data GeoJSON awal untuk tahun 2022
+        loadGeoJSON(22);
+
+        // Event listener untuk dropdown tahun
+        document.getElementById('yearSelect').addEventListener('change', (e) => {
+            const selectedYear = e.target.value;
+            loadGeoJSON(selectedYear);
+        });
+
+        // Event listener untuk dropdown halaman
+        document.getElementById('pageSelect').addEventListener('change', (e) => {
+            const selectedPage = e.target.value;
+            window.location.href = selectedPage;  // Pindah ke halaman yang dipilih
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="register.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>EKOTRACK</h1>
+            </div>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/login">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="register-container">
+        <h2>Registrasi Pengguna Baru</h2>
+        <form method="post" action="/register">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" required><br>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" required><br>
+            </div>
+            <button type="submit">Daftar</button>
+        </form><br>
+        <div class="additional-info">
+            <p>Sudah punya akun? <a href="/login">Login</a></p><br>
+            <p>Balik Kehalaman Utama <a href="/home">Home</a></p>
+        </div>
+    </div>
+
+    <footer>
+        <ul>
+            <li><a href="/privacy-policy">Privacy Policy</a></li>
+            <li><a href="/terms-of-service">Terms of Service</a></li>
+        </ul>
+        <div class="contact-info">
+            <p>&copy; 2024 Website. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
